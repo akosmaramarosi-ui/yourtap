@@ -1,0 +1,31 @@
+{
+ "name": "Your TÁP",
+ "short_name": "Your TÁP",
+ "description": "Your TÁP",
+ "start_url": "./",
+ "scope": "./",
+ "id": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#f4f7f4",
+ "theme_color": "#f4f7f4",
+ "lang": "hu",
+ "icons": [
+  {
+   "src": "icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icons/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

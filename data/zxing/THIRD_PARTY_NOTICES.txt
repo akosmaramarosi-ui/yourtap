@@ -1,0 +1,4 @@
+Your TÁP - harmadik fél szoftver / third-party software (vonalkód leolvasása fényképről / reading barcodes from a photo)
+- @zxing/library 0.21.3 (Apache License 2.0; a ZXing vonalkód-dekódoló JavaScript-portja) - LICENSE_zxing-library.txt
+Csomag forrása / package source: registry.npmjs.org; az ellenőrző összeg (SHA-1) egyezett a tároló adatával / the SHA-1 matched the registry.
+A leolvasás a telefonon fut; a kép nem hagyja el az eszközt. / Decoding runs on the phone; the picture never leaves the device.

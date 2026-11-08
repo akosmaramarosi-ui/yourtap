@@ -1,0 +1,7 @@
+Your TÁP - harmadik fél szoftver / third-party software (a címke beolvasásához / for reading nutrition labels)
+
+- Tesseract.js 5.1.1 (Apache License 2.0) - https://github.com/naptha/tesseract.js - LICENSE_tesseract.js.md
+- Tesseract.js-core 5.1.1 (Apache License 2.0; a Tesseract OCR motor WebAssembly-fordítása) - LICENSE_tesseract.js-core.txt
+- Nyelvi adatok / language data: tessdata_best (Apache License 2.0), eng és hun, a @tesseract.js-data/eng és @tesseract.js-data/hun 1.0.0 csomagokból (4.0.0_best_int)
+Csomagok forrása / package source: registry.npmjs.org; az ellenőrző összeg (SHA-1) egyezett a tároló adatával / the SHA-1 matched the registry.
+Az OCR a telefonon fut, a kép nem hagyja el az eszközt. / The OCR runs on the phone; the image never leaves the device.
