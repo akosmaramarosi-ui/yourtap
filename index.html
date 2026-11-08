@@ -2992,6 +2992,21 @@ window.YT_QUIZ = [{"id":"qa01","lvl":"kezdo","topic":"tanyer","q":{"hu":"Az étk
 </script>
 
 <script>
+/* PWA: az Open Food Facts szöveges keresője (search.openfoodfacts.org) NEM küld CORS-fejlécet, ezért böngészőből (Safari) blokkolódik (az APK-ban a natív híd megkerüli).
+   Ha a kérés hibázik, a PWA az ugyanazon adatbázis CORS-barát régi keresőpontjára (world.openfoodfacts.org/cgi/search.pl) esik vissza, és a döntést megjegyzi az oldal életére. */
+(function () {
+  if (typeof YT === 'undefined' || !YT.offSearch || !YT.offFood || !YT.http) return;
+  var orig = YT.offSearch, sal = true;
+  YT.offSearch = async function (q) {
+    if (sal) { try { return await orig(q); } catch (e) { sal = false; } }
+    var r = await YT.http('https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + encodeURIComponent(q) + '&search_simple=1&action=process&json=1&page_size=30&lc=hu&fields=code,product_name,product_name_hu,brands,nutriments,countries_tags');
+    var ps = (r.json && r.json.products) || [], out = [];
+    ps.forEach(function (h) { var f = YT.offFood(h); if (f) { f._hu = (h.countries_tags || []).indexOf('en:hungary') >= 0 ? 1 : 0; out.push(f); } });
+    return out.sort(function (a, b) { return b._hu - a._hu; }).slice(0, 25);
+  };
+})();
+</script>
+<script>
 /* PWA: szolgáltatás-munkás (offline) + iPhone telepítési tipp */
 (function () {
   var secure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
