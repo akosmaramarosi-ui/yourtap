@@ -2999,7 +2999,10 @@ window.YT_QUIZ = [{"id":"qa01","lvl":"kezdo","topic":"tanyer","q":{"hu":"Az étk
   var orig = YT.offSearch, sal = true;
   YT.offSearch = async function (q) {
     if (sal) { try { return await orig(q); } catch (e) { sal = false; } }
-    var r = await YT.http('https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + encodeURIComponent(q) + '&search_simple=1&action=process&json=1&page_size=30&lc=hu&fields=code,product_name,product_name_hu,brands,nutriments,countries_tags');
+    var url = 'https://world.openfoodfacts.org/cgi/search.pl?search_terms=' + encodeURIComponent(q) + '&search_simple=1&action=process&json=1&page_size=30&lc=hu&fields=code,product_name,product_name_hu,brands,nutriments,countries_tags', r = null, err = null;
+    /* a régi keresőpont terhelés alatt 503-at ad (CORS-fejléc nélkül, ezért a böngészőben „Load failed”): legfeljebb 3 próba, 2 mp szünettel */
+    for (var t = 0; t < 3 && !r; t++) { try { r = await YT.http(url); } catch (e) { err = e; if (t < 2) await new Promise(function (ok) { setTimeout(ok, 2000); }); } }
+    if (!r) throw err;
     var ps = (r.json && r.json.products) || [], out = [];
     ps.forEach(function (h) { var f = YT.offFood(h); if (f) { f._hu = (h.countries_tags || []).indexOf('en:hungary') >= 0 ? 1 : 0; out.push(f); } });
     return out.sort(function (a, b) { return b._hu - a._hu; }).slice(0, 25);
